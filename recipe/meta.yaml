@@ -12,6 +12,8 @@ source:
 build:
   noarch: python
   number: 0
+  # skip for s390x as numba is not available on that platform.
+  skip: True  # [s390x]
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
