@@ -1,5 +1,5 @@
 {% set name = "stumpy" %}
-{% set version = "1.9.2" %}
+{% set version = "1.11.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,26 +7,25 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 58406a6cf635aecd73adc731135aa8ef58b2ecc9e8b799d8ab5530abf34174d8
+  sha256: 1ba79b295c9b52a66943e2d35a15ac84e824e27d68ec9829894bdef2ed6afb2f
 
 build:
-  noarch: python
   number: 0
   # skip for s390x as numba is not available on that platform.
-  skip: True  # [s390x]
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  skip: true  # [s390x or py<37]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
     - setuptools
     - wheel
   run:
-    - python >=3.6
-    - numpy >=1.15
+    - python
+    - numpy >=1.17
     - scipy >=1.5
-    - numba >=0.48
+    - numba >=0.54
 
 test:
   imports:
@@ -37,14 +36,16 @@ test:
     - pip check
 
 about:
-  home: http://github.com/TDAmeritrade/stumpy
+  home: https://github.com/TDAmeritrade/stumpy
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
-  summary: 'STUMPY is a powerful and scalable Python library that computes something called a matrix profile, which can then be used for a variety of time series data mining tasks'
-
+  summary: |
+    A powerful and scalable library that can be used for a variety of time series data mining tasks.
   description: |
-    STUMPY is a powerful and scalable Python library that computes something called a matrix profile, which can then be used for a variety of time series data mining tasks.
+    STUMPY is a powerful and scalable Python library that computes something called a matrix profile, 
+    which can then be used for a variety of time series data mining tasks. It provides efficient algorithms 
+    for tasks such as similarity search, motif discovery, time series segmentation, and anomaly detection.
   doc_url: https://github.com/TDAmeritrade/stumpy/blob/master/README.rst
   dev_url: https://github.com/TDAmeritrade/stumpy
 
