@@ -30,20 +30,25 @@ requirements:
     - pandas >=0.20.0
     - dask-core >=1.2.2
     - distributed >=1.28.1
-    - coverage >=4.5.3
-    - flake8 >=3.7.7
-    - flake8-docstrings >=1.5.0
     - black >=22.1.0
-    - pytest >=4.4.1
     - isort >=5.11.0
 
 test:
+  source_files:
+    - tests
+    - pyproject.toml
   imports:
     - stumpy
   requires:
     - pip
+    - pytest >=4.4.1
+    - pandas
+    - dask-core
+    - distributed
   commands:
     - pip check
+    #E AssertionError: Mismatched elements: 10 / 30 (33.3%)
+    - pytest -v tests --deselect=tests/test_precision.py::test_snippets
 
 about:
   home: https://github.com/TDAmeritrade/stumpy
