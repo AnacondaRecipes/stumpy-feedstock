@@ -1,5 +1,5 @@
 {% set name = "stumpy" %}
-{% set version = "1.13.0" %}
+{% set version = "1.14.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f29d3da980412150e7b029ab0cd8e7b132adcbf1c66ef7a4d35d564808bfba8a
+  sha256: 1cb13696724ddab4b512b16843d37ccf4047aee19e072d1ad83024e1fa6fde96
 
 build:
+  noarch: python
   number: 0
-  # skip for s390x as numba is not available on that platform.
-  skip: true  # [s390x or py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -20,12 +19,11 @@ requirements:
     - python
     - pip
     - setuptools
-    - setuptools-scm
   run:
     - python
-    - numpy >=1.21
+    - numpy >=1.24
     - scipy >=1.10
-    - numba >=0.57.1
+    - numba >=0.61.2
   run_constrained:
     - pandas >=0.20.0
     - dask-core >=1.2.2
