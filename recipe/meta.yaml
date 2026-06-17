@@ -35,11 +35,9 @@ requirements:
 # test_snippets: AssertionError: Mismatched elements: 10 / 30 (33.3%)
 {% set deselect_tests = "--deselect=tests/test_precision.py::test_snippets" %}
 # test_cache_save_after_clear: uses a CWD-relative path to find numba cache files;
-# in conda build's isolated Linux test env the CWD has no stumpy/ subdir, so the
-# path never resolves. Not a stumpy algorithm test.
-{% if linux %}
+# in conda build's isolated test env the CWD has no stumpy/ subdir, so the
+# path never resolves on any platform. Not a stumpy algorithm test.
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_cache.py::test_cache_save_after_clear" %}
-{% endif %}
 
 test:
   source_files:
