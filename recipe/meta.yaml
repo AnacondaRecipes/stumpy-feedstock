@@ -21,6 +21,7 @@ requirements:
     - pip
     - wheel
     - setuptools
+    - setuptools-scm
   run:
     - python
     - numpy >=1.24
