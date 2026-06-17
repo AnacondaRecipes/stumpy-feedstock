@@ -10,8 +10,9 @@ source:
   sha256: 1cb13696724ddab4b512b16843d37ccf4047aee19e072d1ad83024e1fa6fde96
 
 build:
-  noarch: python
   number: 0
+  # skip for s390x as numba is not available on that platform.
+  skip: true  # [s390x or py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
